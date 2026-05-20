@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Health))]
-public class CharacterDeathHandler : MonoBehaviour
+public class CharacterDeath : MonoBehaviour
 {
     [Header("Physics")]
     [SerializeField] private Rigidbody2D _rigidbody;

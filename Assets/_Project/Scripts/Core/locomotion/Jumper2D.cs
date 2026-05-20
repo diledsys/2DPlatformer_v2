@@ -17,12 +17,14 @@ public class Jumper2D : MonoBehaviour
 
     public void Jump()
     {
+        _groundChecker.CheckNow();
+
         if (_groundChecker.IsGrounded == false)
             return;
 
-        _rigidbody.linearVelocity = new Vector2(
-            _rigidbody.linearVelocity.x,
-            _jumpForce
-        );
+        Vector2 velocity = _rigidbody.linearVelocity;
+        velocity.y = _jumpForce;
+
+        _rigidbody.linearVelocity = velocity;
     }
 }

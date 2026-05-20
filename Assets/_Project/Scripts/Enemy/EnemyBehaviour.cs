@@ -1,8 +1,8 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Mover2D))]
-[RequireComponent(typeof(CharacterAttack))]
-public class EnemyAIController : MonoBehaviour
+[RequireComponent(typeof(MeleeAttack))]
+public class EnemyBehaviour : MonoBehaviour
 {
     private const float TargetReachedDeadZone = 0.1f;
 
@@ -18,7 +18,7 @@ public class EnemyAIController : MonoBehaviour
     [SerializeField] private bool _showDebugLogs = true;
 
     private Mover2D _mover;
-    private CharacterAttack _attack;
+    private MeleeAttack _attack;
 
     private Transform _target;
     private float _patrolDirection = 1f;
@@ -27,7 +27,7 @@ public class EnemyAIController : MonoBehaviour
     private void Awake()
     {
         _mover = GetComponent<Mover2D>();
-        _attack = GetComponent<CharacterAttack>();
+        _attack = GetComponent<MeleeAttack>();
     }
 
     private void Update()

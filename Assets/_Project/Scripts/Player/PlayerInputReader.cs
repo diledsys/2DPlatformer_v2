@@ -3,12 +3,12 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Mover2D))]
 [RequireComponent(typeof(Jumper2D))]
-public class PlayerController : MonoBehaviour
+public class PlayerInputReader : MonoBehaviour
 {
     private PlayerInputSystem _input;
     private Mover2D _mover;
     private Jumper2D _jumper;
-    private CharacterAttack _attack;
+    private MeleeAttack _attack;
 
     private Vector2 _moveInput;
     private bool _isRunning;
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
         _mover = GetComponent<Mover2D>();
         _jumper = GetComponent<Jumper2D>();
-        _attack = GetComponent<CharacterAttack>();
+        _attack = GetComponent<MeleeAttack>();
     }
 
     private void OnEnable()

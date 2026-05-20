@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class CharacterAnimationPresenter : MonoBehaviour
+public class CharacterAnimatorView : MonoBehaviour
 {
     private static readonly int SpeedHash = Animator.StringToHash("Speed");
     private static readonly int VerticalHash = Animator.StringToHash("Vertical");
@@ -17,27 +17,30 @@ public class CharacterAnimationPresenter : MonoBehaviour
     [SerializeField] private Mover2D _mover;
 
     [Header("Settings")]
-    [SerializeField] private bool _flipByDirection = true;
+    [SerializeField] private bool _rotateByDirection = true;
     [SerializeField] private bool _facesRightByDefault = true;
 
     private Rigidbody2D _rigidbody;
-    private Vector3 _startVisualScale;
+    private Quaternion _startVisualRotation;
+    private float _defaultFacingMultiplier;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
 
         if (_animator == null)
-            _animator = GetComponentInChildren<Animator>();
+            Debug.LogError($"{name}: Animator reference is missing");
 
-        if (_groundChecker == null)
-            _groundChecker = GetComponent<GroundChecker2D>();
+        if (_visualRoot == null)
+            Debug.LogError($"{name}: VisualRoot reference is missing");
 
         if (_mover == null)
-            _mover = GetComponent<Mover2D>();
+            Debug.LogError($"{name}: Mover2D reference is missing");
 
         if (_visualRoot != null)
-            _startVisualScale = _visualRoot.localScale;
+            _startVisualRotation = _visualRoot.localRotation;
+
+        _defaultFacingMultiplier = _facesRightByDefault ? 1f : -1f;
     }
 
     private void Update()
@@ -52,6 +55,25 @@ public class CharacterAnimationPresenter : MonoBehaviour
             return;
 
         _animator.SetTrigger(AttackHash);
+    }
+
+    public void PlayDamage()
+    {
+        if (_animator == null)
+            return;
+
+        _animator.ResetTrigger(AttackHash);
+        _animator.SetTrigger(DamageHash);
+    }
+
+    public void PlayDead()
+    {
+        if (_animator == null)
+            return;
+
+        _animator.ResetTrigger(AttackHash);
+        _animator.ResetTrigger(DamageHash);
+        _animator.SetTrigger(DeadHash);
     }
 
     private void UpdateMovementAnimation()
@@ -70,37 +92,18 @@ public class CharacterAnimationPresenter : MonoBehaviour
 
     private void UpdateFacingDirection()
     {
-        if (_flipByDirection == false)
+        if (_rotateByDirection == false)
             return;
 
         if (_visualRoot == null || _mover == null)
             return;
 
-        float direction = _mover.FacingDirection;
+        float direction = _mover.FacingDirection * _defaultFacingMultiplier;
 
-        if (_facesRightByDefault == false)
-            direction *= -1f;
+        Quaternion rotation = direction >= 0
+            ? _startVisualRotation
+            : _startVisualRotation * Quaternion.Euler(0f, 180f, 0f);
 
-        Vector3 scale = _startVisualScale;
-        scale.x = Mathf.Abs(_startVisualScale.x) * direction;
-
-        _visualRoot.localScale = scale;
-    }
-
-    public void PlayDamage()
-    {
-        if (_animator == null)
-            return;
-        _animator.ResetTrigger(AttackHash);
-        _animator.SetTrigger(DamageHash);
-
-    }
-
-    public void PlayDead()
-    {
-        if (_animator == null)
-            return;
-
-        _animator.SetTrigger(DeadHash);
+        _visualRoot.localRotation = rotation;
     }
 }

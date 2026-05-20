@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BrokenEnemyController : MonoBehaviour
+public class BrokenEnemyRagdoll : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D[] _parts;
     [SerializeField] private float _force = 2.5f;

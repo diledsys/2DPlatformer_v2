@@ -1,17 +1,17 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Health))]
-[RequireComponent(typeof(CharacterAnimationPresenter))]
-public class CharacterHealthPresenter : MonoBehaviour
+[RequireComponent(typeof(CharacterAnimatorView))]
+public class CharacterDamageView : MonoBehaviour
 {
     private Health _health;
-    private CharacterAnimationPresenter _animationPresenter;
-    private CharacterAttack _attack;
+    private CharacterAnimatorView _animationPresenter;
+    private MeleeAttack _attack;
     private void Awake()
     {
         _health = GetComponent<Health>();
-        _animationPresenter = GetComponent<CharacterAnimationPresenter>();
-        _attack = GetComponent<CharacterAttack>();
+        _animationPresenter = GetComponent<CharacterAnimatorView>();
+        _attack = GetComponent<MeleeAttack>();
     }
 
     private void OnEnable()

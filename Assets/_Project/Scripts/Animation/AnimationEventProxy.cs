@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class AnimationEventProxy : MonoBehaviour
 {
-    [SerializeField] private CharacterAttack _attack;
+    [SerializeField] private MeleeAttack _attack;
 
     private void Awake()
     {
         if (_attack == null)
-            _attack = GetComponentInParent<CharacterAttack>();
+            _attack = GetComponentInParent<MeleeAttack>();
     }
 
     public void OpenHitbox()

@@ -1,23 +1,17 @@
+using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Health))]
-[RequireComponent(typeof(PlayerScore))]
 public class PlayerCollector : MonoBehaviour
 {
-    public Health Health { get; private set; }
-    public PlayerScore Score { get; private set; }
-
-    private void Awake()
-    {
-        Health = GetComponent<Health>();
-        Score = GetComponent<PlayerScore>();
-    }
+    public event Action<CollectableItem> CollectableDetected;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent(out ICollectable collectable) == false)
+        CollectableItem collectable = other.GetComponentInParent<CollectableItem>();
+
+        if (collectable == null)
             return;
 
-        collectable.Collect(this);
+        CollectableDetected?.Invoke(collectable);
     }
 }

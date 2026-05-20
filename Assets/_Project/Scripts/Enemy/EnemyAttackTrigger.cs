@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class EnemyAttackTrigger : MonoBehaviour
 {
-    [SerializeField] private CharacterAttack _attack;
+    [SerializeField] private MeleeAttack _attack;
 
     private void Awake()
     {
@@ -11,12 +11,12 @@ public class EnemyAttackTrigger : MonoBehaviour
         collider.isTrigger = true;
 
         if (_attack == null)
-            _attack = GetComponentInParent<CharacterAttack>();
+            _attack = GetComponentInParent<MeleeAttack>();
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.TryGetComponent(out PlayerController _) == false)
+        if (other.TryGetComponent(out PlayerInputReader _) == false)
             return;
 
         _attack.Attack();

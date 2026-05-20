@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class CharacterAttack : MonoBehaviour
+public class MeleeAttack : MonoBehaviour
 {
     [SerializeField] private AttackHitbox _attackHitbox;
-    [SerializeField] private CharacterAnimationPresenter _animationPresenter;
+    [SerializeField] private CharacterAnimatorView _animationPresenter;
 
     private bool _isAttacking;
 
@@ -12,7 +12,7 @@ public class CharacterAttack : MonoBehaviour
     private void Awake()
     {
         if (_animationPresenter == null)
-            _animationPresenter = GetComponent<CharacterAnimationPresenter>();
+            _animationPresenter = GetComponent<CharacterAnimatorView>();
 
         if (_attackHitbox != null)
             _attackHitbox.Disable();
