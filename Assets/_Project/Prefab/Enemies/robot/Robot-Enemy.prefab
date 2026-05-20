@@ -8514,6 +8514,7 @@ GameObject:
   - component: {fileID: 369530611823759157}
   - component: {fileID: 8226827140479409731}
   - component: {fileID: 7184892468829122081}
+  - component: {fileID: 2224092444590355245}
   m_Layer: 13
   m_Name: Robot-Enemy
   m_TagString: Untagged
@@ -8673,12 +8674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAIController
   _patrolChangeDirectionDelay: 2
-  _visionRadius: 8.36
-  _attackDistance: 1.17
-  _targetLayer:
-    serializedVersion: 2
-    m_Bits: 4096
-  _showDebugLogs: 1
+  _attackDistance: 1.29
 --- !u!114 &-6169117572488185495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8775,6 +8771,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854a6ba79f192a646b699fff139bfa3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnable
+--- !u!114 &2224092444590355245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2297735635050573343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bef889896a984041b2a5b81a3df5a29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySight
+  _visionRadius: 5
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  _checkInterval: 0.1
 --- !u!1 &2739706393528867099
 GameObject:
   m_ObjectHideFlags: 0
@@ -9623,7 +9636,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8625486003420782560}
   - component: {fileID: 3813577095052325332}
-  - component: {fileID: 1419772635983124256}
   m_Layer: 13
   m_Name: AtackSensor
   m_TagString: Untagged
@@ -9692,16 +9704,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.6615626, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1419772635983124256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7702075954831557248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2640f133518db384fbf1a75acbd3b702, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackTrigger
-  _attack: {fileID: 0}

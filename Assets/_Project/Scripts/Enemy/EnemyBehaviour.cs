@@ -1,7 +1,9 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Mover2D))]
 [RequireComponent(typeof(MeleeAttack))]
+[RequireComponent(typeof(EnemySight))]
 public class EnemyBehaviour : MonoBehaviour
 {
     private const float TargetReachedDeadZone = 0.1f;
@@ -9,104 +11,94 @@ public class EnemyBehaviour : MonoBehaviour
     [Header("Patrol")]
     [SerializeField] private float _patrolChangeDirectionDelay = 2f;
 
-    [Header("Detection")]
-    [SerializeField] private float _visionRadius = 5f;
-    [SerializeField] private float _attackDistance = 1.2f;
-    [SerializeField] private LayerMask _targetLayer;
-
-    [Header("Debug")]
-    [SerializeField] private bool _showDebugLogs = true;
+    [Header("Combat")]
+    [SerializeField] private float _attackDistance = 1.8f;
 
     private Mover2D _mover;
     private MeleeAttack _attack;
+    private EnemySight _sight;
 
-    private Transform _target;
+    private Coroutine _patrolCoroutine;
+    private WaitForSeconds _patrolWait;
     private float _patrolDirection = 1f;
-    private float _patrolTimer;
 
     private void Awake()
     {
         _mover = GetComponent<Mover2D>();
         _attack = GetComponent<MeleeAttack>();
+        _sight = GetComponent<EnemySight>();
+
+        _patrolWait = new WaitForSeconds(_patrolChangeDirectionDelay);
+    }
+
+    private void OnEnable()
+    {
+        _patrolCoroutine = StartCoroutine(PatrolRoutine());
+    }
+
+    private void OnDisable()
+    {
+        if (_patrolCoroutine != null)
+            StopCoroutine(_patrolCoroutine);
+
+        _patrolCoroutine = null;
     }
 
     private void Update()
     {
-        FindTarget();
-
-        if (_target == null)
+        if (_sight.HasTarget == false)
         {
             Patrol();
             return;
         }
 
-        ChaseOrAttackTarget();
+        ChaseOrAttack(_sight.Target);
     }
 
-    private void FindTarget()
+    private IEnumerator PatrolRoutine()
     {
-        Collider2D hit = Physics2D.OverlapCircle(
-            transform.position,
-            _visionRadius,
-            _targetLayer
-        );
-
-        if (hit == null)
+        while (enabled)
         {
-            if (_target != null && _showDebugLogs)
-                Debug.Log($"{name}: lost target");
-
-            _target = null;
-            return;
+            yield return _patrolWait;
+            _patrolDirection *= -1f;
         }
-
-        if (hit.TryGetComponent(out PlayerTarget playerTarget) == false)
-            return;
-
-        if (_target == null && _showDebugLogs)
-            Debug.Log($"{name}: target detected");
-
-        _target = playerTarget.transform;
     }
 
     private void Patrol()
     {
-        _patrolTimer += Time.deltaTime;
-
-        if (_patrolTimer >= _patrolChangeDirectionDelay)
-        {
-            _patrolTimer = 0f;
-            _patrolDirection *= -1f;
-        }
-
         _mover.SetDirection(_patrolDirection);
     }
 
-    private void ChaseOrAttackTarget()
+    private void ChaseOrAttack(Transform target)
     {
-        float distanceToTarget = Vector2.Distance(transform.position, _target.position);
+        if (target == null)
+        {
+            Patrol();
+            return;
+        }
 
-        if (distanceToTarget <= _attackDistance)
+        float horizontalDistance = Mathf.Abs(target.position.x - transform.position.x);
+        float directionToTarget = Mathf.Sign(target.position.x - transform.position.x);
+
+        if (horizontalDistance <= _attackDistance)
         {
             _mover.Stop();
+            _mover.SetFacingDirection(directionToTarget);
             _attack.Attack();
             return;
         }
 
-        float direction = Mathf.Sign(_target.position.x - transform.position.x);
-
-        if (Mathf.Abs(_target.position.x - transform.position.x) <= TargetReachedDeadZone)
+        if (horizontalDistance <= TargetReachedDeadZone)
         {
             _mover.Stop();
             return;
         }
 
-        _mover.SetDirection(direction);
+        _mover.SetDirection(directionToTarget);
     }
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position, _visionRadius);
         Gizmos.DrawWireSphere(transform.position, _attackDistance);
     }
 }
