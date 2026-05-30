@@ -1865,7 +1865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd1f24f0957945418782ce444725c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimationEventProxy
-  _attack: {fileID: 369530611823759157}
+  _character: {fileID: 3149018040453586281}
 --- !u!114 &151614332937760666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8508,13 +8508,12 @@ GameObject:
   - component: {fileID: 2971650477670543141}
   - component: {fileID: 8270545057267076306}
   - component: {fileID: 4522208721217345711}
-  - component: {fileID: -6169117572488185495}
   - component: {fileID: 5534787557587911415}
   - component: {fileID: -2320896744722436164}
   - component: {fileID: 369530611823759157}
   - component: {fileID: 8226827140479409731}
-  - component: {fileID: 7184892468829122081}
   - component: {fileID: 2224092444590355245}
+  - component: {fileID: 3149018040453586281}
   m_Layer: 13
   m_Name: Robot-Enemy
   m_TagString: Untagged
@@ -8673,20 +8672,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8e1ee48201342419e5b1d789e98457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAIController
-  _patrolChangeDirectionDelay: 2
+  _patrolChangeDirectionDelay: 4
   _attackDistance: 1.29
---- !u!114 &-6169117572488185495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2297735635050573343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b300284255cc4554aafdb968403a8926, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterHealthPresenter
+  _character: {fileID: 3149018040453586281}
 --- !u!114 &5534787557587911415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8704,7 +8692,6 @@ MonoBehaviour:
   _mover: {fileID: 6229717778838554867}
   _componentsToDisable:
   - {fileID: 4522208721217345711}
-  - {fileID: 0}
   - {fileID: 6229717778838554867}
   - {fileID: 8226827140479409731}
 --- !u!114 &-2320896744722436164
@@ -8721,12 +8708,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyRagdollDeath
   _visualRoot: {fileID: 3744572562850770193}
   _animator: {fileID: 2739706395215672693}
+  _parts:
+  - {fileID: 650019621382878595}
+  - {fileID: 5213850543001992477}
+  - {fileID: 9133956399888237007}
+  - {fileID: 3669483652566112708}
+  - {fileID: 2769964482107691903}
+  - {fileID: 5074091851469492965}
+  - {fileID: 2740495798322458575}
+  - {fileID: 8921629895645324460}
+  - {fileID: 3420502785760628921}
+  - {fileID: 7693533395362970706}
+  - {fileID: 6128655395452434257}
+  - {fileID: 2486226876463585128}
+  - {fileID: 2179647538357120644}
+  - {fileID: 5339584617418519098}
+  - {fileID: 7726994490567017492}
+  - {fileID: 2686121007487654290}
+  - {fileID: 5673543788458692281}
+  - {fileID: 8565423416414368192}
+  - {fileID: 4154278883341637144}
+  - {fileID: 8446731177094495993}
+  - {fileID: 2799878359344531579}
+  - {fileID: 4836218237005844147}
+  - {fileID: 3683335889058918803}
+  - {fileID: 6643315443440485893}
+  - {fileID: 1234129775124080300}
+  - {fileID: 2524666279807185541}
+  - {fileID: 6786962836738936532}
+  - {fileID: 8718318829183691566}
+  - {fileID: 652300915503706896}
+  - {fileID: 7727224850398465226}
+  - {fileID: 954088209776650773}
+  - {fileID: 4438556092488856952}
+  _rigControllersToDisable: []
+  _spriteSkinsToDisable: []
   _sideForce: 2.5
   _upForce: 2
   _torque: 5
   _destroyDelay: 50
   _detachPartsFromParent: 1
-  _disableSpriteSkin: 1
 --- !u!114 &369530611823759157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8739,8 +8760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 917b680f72c66a442bc251d9fe64353a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeleeAttack
-  _attackHitbox: {fileID: 625698763260348988}
-  _animationPresenter: {fileID: 8226827140479409731}
+  _hitbox: {fileID: 625698763260348988}
 --- !u!114 &8226827140479409731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8754,23 +8774,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimatorView
   _animator: {fileID: 2739706395215672693}
-  _groundChecker: {fileID: 2407540954164154195}
   _visualRoot: {fileID: 3744572562850770193}
-  _mover: {fileID: 6229717778838554867}
   _rotateByDirection: 1
   _facesRightByDefault: 0
---- !u!114 &7184892468829122081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2297735635050573343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 854a6ba79f192a646b699fff139bfa3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnable
 --- !u!114 &2224092444590355245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8788,6 +8794,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   _checkInterval: 0.1
+--- !u!114 &3149018040453586281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2297735635050573343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63376700f5db94b4f9a2ce881999d41b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  _animatorView: {fileID: 8226827140479409731}
+  _groundChecker: {fileID: 2407540954164154195}
 --- !u!1 &2739706393528867099
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,8 @@ public class EnemyBehaviour : MonoBehaviour
     [Header("Combat")]
     [SerializeField] private float _attackDistance = 1.8f;
 
+    [SerializeField] private Character _character;
+
     private Mover2D _mover;
     private MeleeAttack _attack;
     private EnemySight _sight;
@@ -36,14 +38,6 @@ public class EnemyBehaviour : MonoBehaviour
         _patrolCoroutine = StartCoroutine(PatrolRoutine());
     }
 
-    private void OnDisable()
-    {
-        if (_patrolCoroutine != null)
-            StopCoroutine(_patrolCoroutine);
-
-        _patrolCoroutine = null;
-    }
-
     private void Update()
     {
         if (_sight.HasTarget == false)
@@ -53,6 +47,14 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         ChaseOrAttack(_sight.Target);
+    }
+
+    private void OnDisable()
+    {
+        if (_patrolCoroutine != null)
+            StopCoroutine(_patrolCoroutine);
+
+        _patrolCoroutine = null;
     }
 
     private IEnumerator PatrolRoutine()
@@ -84,7 +86,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             _mover.Stop();
             _mover.SetFacingDirection(directionToTarget);
-            _attack.Attack();
+            _character.Attack();
             return;
         }
 

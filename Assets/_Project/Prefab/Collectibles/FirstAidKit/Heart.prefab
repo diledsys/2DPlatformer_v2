@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5681731377604100263}
   - component: {fileID: 5489510199814872068}
   - component: {fileID: 7128242509074256878}
-  - component: {fileID: -3650590851648209279}
   m_Layer: 0
   m_Name: Heart
   m_TagString: Untagged
@@ -84,18 +83,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeartCollectable
   _healValue: 1
---- !u!114 &-3650590851648209279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6126517394928147468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 493ed7fda097bf44cb0e1621089d045c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CollectableSpawnable
 --- !u!1001 &81044440530362620
 PrefabInstance:
   m_ObjectHideFlags: 0

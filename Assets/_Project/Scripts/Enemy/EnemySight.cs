@@ -56,11 +56,13 @@ public class EnemySight : MonoBehaviour
             return;
         }
 
-        PlayerTarget playerTarget = hit.GetComponentInParent<PlayerTarget>();
+        if (hit.TryGetComponent(out PlayerTarget playerTarget) == false)
+        {
+            _target = null;
+            return;
+        }
 
-        _target = playerTarget != null
-            ? playerTarget.transform
-            : null;
+        _target = playerTarget.transform;
     }
 
     private void OnValidate()

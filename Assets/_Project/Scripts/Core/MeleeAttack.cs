@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class MeleeAttack : MonoBehaviour
 {
-    [SerializeField] private AttackHitbox _attackHitbox;
-    [SerializeField] private CharacterAnimatorView _animationPresenter;
+    [SerializeField] private AttackHitbox _hitbox;
 
     private bool _isAttacking;
 
@@ -11,37 +10,38 @@ public class MeleeAttack : MonoBehaviour
 
     private void Awake()
     {
-        if (_animationPresenter == null)
-            _animationPresenter = GetComponent<CharacterAnimatorView>();
-
-        if (_attackHitbox != null)
-            _attackHitbox.Disable();
+        if (_hitbox == null)
+            Debug.LogError($"{name}: DamageHitbox reference is missing");
     }
 
-    public void Attack()
+    public bool TryStart()
     {
         if (_isAttacking)
-            return;
+            return false;
 
         _isAttacking = true;
-
-        if (_animationPresenter != null)
-            _animationPresenter.PlayAttack();
+        return true;
     }
 
     public void OpenHitbox()
     {
-        if (_attackHitbox != null)
-            _attackHitbox.Enable();
+        if (_hitbox != null)
+            _hitbox.Enable();
     }
 
     public void CloseHitbox()
     {
-        if (_attackHitbox != null)
-            _attackHitbox.Disable();
+        if (_hitbox != null)
+            _hitbox.Disable();
     }
 
     public void FinishAttack()
+    {
+        CloseHitbox();
+        _isAttacking = false;
+    }
+
+    public void Interrupt()
     {
         CloseHitbox();
         _isAttacking = false;

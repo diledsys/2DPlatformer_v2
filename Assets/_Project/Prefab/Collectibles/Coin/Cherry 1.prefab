@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8614005162282079538}
   - component: {fileID: 9074542076356421818}
   - component: {fileID: 8262184178280352337}
-  - component: {fileID: -4149012297673357521}
   m_Layer: 0
   m_Name: Cherry 1
   m_TagString: Untagged
@@ -84,18 +83,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CherryCollectable
   _scoreValue: 2
---- !u!114 &-4149012297673357521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1013802520279712003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 493ed7fda097bf44cb0e1621089d045c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CollectableSpawnable
 --- !u!1001 &3506962616473649967
 PrefabInstance:
   m_ObjectHideFlags: 0

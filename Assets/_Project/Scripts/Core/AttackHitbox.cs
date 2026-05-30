@@ -23,11 +23,6 @@ public class AttackHitbox : MonoBehaviour
         _collider.enabled = true;
     }
 
-    public void Disable()
-    {
-        _collider.enabled = false;
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.TryGetComponent(out Health targetHealth) == false)
@@ -38,4 +33,10 @@ public class AttackHitbox : MonoBehaviour
 
         targetHealth.TakeDamage(_damageDealer.Damage);
     }
+
+    public void Disable()
+    {
+        _collider.enabled = false;
+    }
+
 }

@@ -5344,7 +5344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd1f24f0957945418782ce444725c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimationEventProxy
-  _attack: {fileID: 0}
+  _character: {fileID: 4708738817545566014}
 --- !u!1 &944798575250313572
 GameObject:
   m_ObjectHideFlags: 0
@@ -7014,17 +7014,17 @@ GameObject:
   - component: {fileID: 6802556618593392099}
   - component: {fileID: 6458820690067448392}
   - component: {fileID: 7401883864102717908}
-  - component: {fileID: 5734370992332765439}
   - component: {fileID: 130916804524009817}
   - component: {fileID: 1018924497964049192}
   - component: {fileID: 187578016652824928}
   - component: {fileID: 8275013295100360787}
-  - component: {fileID: 6206256080233399757}
   - component: {fileID: 3046716883032930267}
   - component: {fileID: 2680909745804842495}
   - component: {fileID: 1116873516658298041}
   - component: {fileID: 6463925594624286099}
   - component: {fileID: 2204406133377511540}
+  - component: {fileID: 4708738817545566014}
+  - component: {fileID: -1706249398546454045}
   m_Layer: 12
   m_Name: Ninja-Cat_Player
   m_TagString: Untagged
@@ -7209,18 +7209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a13d989ca67b844e9cc863f599a8c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerTarget
---- !u!114 &5734370992332765439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4728098888415812573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b300284255cc4554aafdb968403a8926, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterHealthPresenter
 --- !u!114 &130916804524009817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7239,10 +7227,6 @@ MonoBehaviour:
   _componentsToDisable:
   - {fileID: 9044945000461380289}
   - {fileID: 6802556618593392099}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &1018924497964049192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7279,18 +7263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f2b6c031e50e0478adefdf2f700d01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCollectableHandler
---- !u!114 &6206256080233399757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4728098888415812573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57bd105b2473caf4ea29fe389dba81b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawnable
 --- !u!114 &3046716883032930267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7342,9 +7314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimatorView
   _animator: {fileID: 8085495884455338191}
-  _groundChecker: {fileID: 2980928235957193589}
   _visualRoot: {fileID: 9214876425990621776}
-  _mover: {fileID: 9044945000461380289}
   _rotateByDirection: 1
   _facesRightByDefault: 1
 --- !u!114 &2204406133377511540
@@ -7359,8 +7329,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 917b680f72c66a442bc251d9fe64353a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeleeAttack
-  _attackHitbox: {fileID: 570252074683656002}
-  _animationPresenter: {fileID: 6463925594624286099}
+  _hitbox: {fileID: 570252074683656002}
+--- !u!114 &4708738817545566014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4728098888415812573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63376700f5db94b4f9a2ce881999d41b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  _animatorView: {fileID: 6463925594624286099}
+  _groundChecker: {fileID: 2980928235957193589}
+--- !u!114 &-1706249398546454045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4728098888415812573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fe590aa725313d4b82900a3b790e143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputUse
 --- !u!1 &4910471742301500728
 GameObject:
   m_ObjectHideFlags: 0
@@ -7466,7 +7461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b00478058c7e0a143a0301da19d836f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackHitbox
-  _ownerHealth: {fileID: 0}
+  _ownerHealth: {fileID: 1116873516658298041}
 --- !u!1 &6388169893058112618
 GameObject:
   m_ObjectHideFlags: 0

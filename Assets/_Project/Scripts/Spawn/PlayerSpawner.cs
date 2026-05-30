@@ -1,15 +1,52 @@
 using UnityEngine;
 
-public class PlayerSpawner : SpawnerBase<PlayerSpawnable>
+public class PlayerSpawner : MonoBehaviour
 {
-    [SerializeField] private CameraBinder _cameraBinder;
+    [SerializeField] private Character _prefab;
+    [SerializeField] private Transform _spawnPoint;
+    [SerializeField] private CameraBinder _cameraTargetBinder;
+    [SerializeField] private bool _spawnOnStart = true;
 
-    protected override void OnSpawned(PlayerSpawnable spawnedObject, Transform spawnPoint)
+    private Character _spawnedPlayer;
+
+    private void Start()
     {
-        if (_cameraBinder == null)
-            return;
+        if (_spawnOnStart)
+            Spawn();
+    }
 
-        if (spawnedObject.TryGetComponent(out PlayerCameraTarget cameraTarget))
-            _cameraBinder.Bind(cameraTarget);
+    private void OnDestroy()
+    {
+        Clear();
+    }
+
+    public Character Spawn()
+    {
+        Clear();
+
+        if (_prefab == null || _spawnPoint == null)
+            return null;
+
+        _spawnedPlayer = Instantiate(
+            _prefab,
+            _spawnPoint.position,
+            _spawnPoint.rotation
+        );
+
+        if (_cameraTargetBinder != null &&
+            _spawnedPlayer.TryGetComponent(out PlayerCameraTarget cameraTarget))
+        {
+            _cameraTargetBinder.Bind(cameraTarget);
+        }
+
+        return _spawnedPlayer;
+    }
+
+    public void Clear()
+    {
+        if (_spawnedPlayer != null)
+            Destroy(_spawnedPlayer.gameObject);
+
+        _spawnedPlayer = null;
     }
 }

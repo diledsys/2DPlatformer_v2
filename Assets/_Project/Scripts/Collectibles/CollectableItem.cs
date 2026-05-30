@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public abstract class CollectableItem : SpawnableObject
+public abstract class CollectableItem : MonoBehaviour
 {
     private bool _isCollected;
 

@@ -18,15 +18,15 @@ public class HealthDebugView : MonoBehaviour
         _health.Died += OnDied;
     }
 
+    private void Start()
+    {
+        Debug.Log($"{_label} health: {_health.CurrentValue}/{_health.MaxValue}");
+    }
+
     private void OnDisable()
     {
         _health.Changed -= OnHealthChanged;
         _health.Died -= OnDied;
-    }
-
-    private void Start()
-    {
-        Debug.Log($"{_label} health: {_health.CurrentValue}/{_health.MaxValue}");
     }
 
     private void OnHealthChanged(int currentValue, int maxValue)

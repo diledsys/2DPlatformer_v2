@@ -2,34 +2,87 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectableSpawner : SpawnerBase<CollectableSpawnable>
+public class CollectableSpawner : MonoBehaviour
 {
+    [SerializeField] private CollectableItem _prefab;
+    [SerializeField] private Transform[] _spawnPoints;
+    [SerializeField] private bool _spawnOnStart = true;
     [SerializeField] private bool _respawnAfterCollect = true;
     [SerializeField] private float _respawnDelay = 5f;
 
-    private readonly Dictionary<CollectableItem, Transform> _spawnPointsByCollectable = new();
+    private readonly List<CollectableItem> _spawnedItems = new();
+    private readonly Dictionary<CollectableItem, Transform> _spawnPointsByItem = new();
 
-    protected override void OnSpawned(CollectableSpawnable spawnedObject, Transform spawnPoint)
+    private void Start()
     {
-        if (spawnedObject.TryGetComponent(out CollectableItem collectable) == false)
-            return;
-
-        _spawnPointsByCollectable[collectable] = spawnPoint;
-        collectable.Collected += OnCollected;
+        if (_spawnOnStart)
+            SpawnAll();
     }
 
-    private void OnCollected(CollectableItem collectable)
+    private void OnDestroy()
     {
-        if (_spawnPointsByCollectable.TryGetValue(collectable, out Transform spawnPoint) == false)
+        Clear();
+    }
+
+    public void SpawnAll()
+    {
+        Clear();
+
+        foreach (Transform spawnPoint in _spawnPoints)
+        {
+            if (spawnPoint == null)
+                continue;
+
+            Spawn(spawnPoint);
+        }
+    }
+
+    public void Clear()
+    {
+        foreach (CollectableItem item in _spawnPointsByItem.Keys)
+        {
+            if (item != null)
+                item.Collected -= OnCollected;
+        }
+
+        _spawnPointsByItem.Clear();
+
+        for (int i = _spawnedItems.Count - 1; i >= 0; i--)
+        {
+            if (_spawnedItems[i] != null)
+                Destroy(_spawnedItems[i].gameObject);
+        }
+
+        _spawnedItems.Clear();
+    }
+
+    private void Spawn(Transform spawnPoint)
+    {
+        if (_prefab == null)
             return;
 
-        collectable.Collected -= OnCollected;
-        _spawnPointsByCollectable.Remove(collectable);
+        CollectableItem item = Instantiate(
+            _prefab,
+            spawnPoint.position,
+            spawnPoint.rotation
+        );
 
-        if (collectable.TryGetComponent(out CollectableSpawnable spawnable))
-            RemoveFromSpawned(spawnable);
+        _spawnedItems.Add(item);
+        _spawnPointsByItem[item] = spawnPoint;
 
-        Destroy(collectable.gameObject);
+        item.Collected += OnCollected;
+    }
+
+    private void OnCollected(CollectableItem item)
+    {
+        if (_spawnPointsByItem.TryGetValue(item, out Transform spawnPoint) == false)
+            return;
+
+        item.Collected -= OnCollected;
+        _spawnPointsByItem.Remove(item);
+        _spawnedItems.Remove(item);
+
+        Destroy(item.gameObject);
 
         if (_respawnAfterCollect)
             StartCoroutine(RespawnAfterDelay(spawnPoint));
@@ -39,21 +92,7 @@ public class CollectableSpawner : SpawnerBase<CollectableSpawnable>
     {
         yield return new WaitForSeconds(_respawnDelay);
 
-        if (spawnPoint == null)
-            yield break;
-
-        Spawn(spawnPoint);
-    }
-
-    public override void Clear()
-    {
-        foreach (CollectableItem collectable in _spawnPointsByCollectable.Keys)
-        {
-            if (collectable != null)
-                collectable.Collected -= OnCollected;
-        }
-
-        _spawnPointsByCollectable.Clear();
-        base.Clear();
+        if (spawnPoint != null)
+            Spawn(spawnPoint);
     }
 }

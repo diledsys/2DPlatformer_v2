@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a706ff6c41e5f049b6d23c30c8b4ff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollectableSpawner
-  _prefab: {fileID: -3650590851648209279, guid: 7e893635a0f294c4281917df503bca2f, type: 3}
+  _prefab: {fileID: 7128242509074256878, guid: 7e893635a0f294c4281917df503bca2f, type: 3}
   _spawnPoints:
   - {fileID: 1901012070}
   - {fileID: 258992792}
@@ -250,11 +250,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec22e92efbf3a34eb7a86e1c51e1a91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawner
-  _prefab: {fileID: 6206256080233399757, guid: 4ea4461527c69394c9072bfcc124551e, type: 3}
-  _spawnPoints:
-  - {fileID: 1256937213}
+  _prefab: {fileID: 4708738817545566014, guid: 4ea4461527c69394c9072bfcc124551e, type: 3}
+  _spawnPoint: {fileID: 1256937213}
+  _cameraTargetBinder: {fileID: 1270158583}
   _spawnOnStart: 1
-  _cameraBinder: {fileID: 1270158583}
 --- !u!1 &187484265
 GameObject:
   m_ObjectHideFlags: 0
@@ -10578,7 +10577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97cc8b9fc5699bf49a4e274986b7e614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  _prefab: {fileID: 7184892468829122081, guid: 8fbc3c19fc2fdf94db393f730762dce2, type: 3}
+  _prefab: {fileID: 3149018040453586281, guid: 8fbc3c19fc2fdf94db393f730762dce2, type: 3}
   _spawnPoints:
   - {fileID: 1536058405}
   - {fileID: 802033660}
@@ -10974,7 +10973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a706ff6c41e5f049b6d23c30c8b4ff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollectableSpawner
-  _prefab: {fileID: -4149012297673357521, guid: 7b7cbdb609faef945bc191f2aac01454, type: 3}
+  _prefab: {fileID: 8262184178280352337, guid: 7b7cbdb609faef945bc191f2aac01454, type: 3}
   _spawnPoints:
   - {fileID: 187484266}
   - {fileID: 55093354}

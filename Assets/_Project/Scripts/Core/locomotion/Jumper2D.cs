@@ -17,8 +17,6 @@ public class Jumper2D : MonoBehaviour
 
     public void Jump()
     {
-        _groundChecker.CheckNow();
-
         if (_groundChecker.IsGrounded == false)
             return;
 
