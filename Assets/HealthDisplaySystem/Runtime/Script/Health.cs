@@ -7,13 +7,13 @@ public class Health : MonoBehaviour
 
     private int _currentValue;
 
-    public int CurrentValue => _currentValue;
-    public int MaxValue => _maxValue;
-    public bool IsDead => _currentValue <= 0;
-
     public event Action<int, int> Changed;
     public event Action Damaged;
     public event Action Died;
+
+    public int CurrentValue => _currentValue;
+    public int MaxValue => _maxValue;
+    public bool IsDead => _currentValue <= 0;
 
     private void Awake()
     {
@@ -25,29 +25,32 @@ public class Health : MonoBehaviour
         if (damage <= 0)
             return;
 
-        if (IsDead)
-            return;
+        int previousValue = _currentValue;
 
         _currentValue = Mathf.Max(_currentValue - damage, 0);
+
+        if (_currentValue == previousValue)
+            return;
 
         Changed?.Invoke(_currentValue, _maxValue);
         Damaged?.Invoke();
 
-        if (IsDead)
+        if (previousValue > 0 && IsDead)
             Died?.Invoke();
     }
 
-    public void Heal(int value)
+    public void TakeHealing(int value)
     {
         if (value <= 0)
             return;
 
-        if (IsDead)
-            return;
+        int previousValue = _currentValue;
 
         _currentValue = Mathf.Min(_currentValue + value, _maxValue);
-        Changed?.Invoke(_currentValue, _maxValue);
 
-        Debug.Log($"{name} healed: {_currentValue}/{_maxValue}");
+        if (_currentValue == previousValue)
+            return;
+
+        Changed?.Invoke(_currentValue, _maxValue);
     }
 }

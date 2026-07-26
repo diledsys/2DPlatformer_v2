@@ -40,7 +40,7 @@ public class PlayerCollectableHandler : MonoBehaviour
         {
             if (_health.CurrentValue < _health.MaxValue)
             {
-                _health.Heal(healthReward.HealValue);
+                _health.TakeHealing(healthReward.HealValue);
                 wasApplied = true;
             }
         }
